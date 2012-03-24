@@ -50,6 +50,16 @@ def removeSong(youTubeURL, songTitle, songArtist):
     collection.remove(song)
     print('removed song')
 
+def getSongID(youTubeURL):
+    collection = getDB()
+    _id = collection.find_one({'URL': youTubeURL}, {'_id': 1})
+    if _id == None:
+        print("damn it no such song exists: " + youTubeURL)
+        return 0
+    else:
+        return _id
+
+
 def testAddSong():
     collection = getDB()
     addSong('http://www.mozart.com','Sonata','Mozart')
@@ -58,19 +68,25 @@ def testAddSong():
     removeSong('http://www.mozart.com','Sonata','Mozart')
     print(getDB().find_one())
 
-def getGame(userName, song1, song2, song3, song4, song5):
+# returns a json formatted game containing the song urls provided
+# the songs are stored by _id: Song1_ID, Song2_ID, etc.
+# the each user can have only 1 game with a given game name
+def getGame(userName, gameName, song1, song2, song3, song4, song5):
     game = {'UserName': userName, \
-            'Song1_ID': song1, \
-            'Song2_ID': song2, \
-            'Song3_ID': song3, \
-            'Song4_ID': song4, \
-            'Song5_ID': song5}
+            'GameName': gameName, \
+            'Song1_ID': getSongID(song1), \
+            'Song2_ID': getSongID(song2), \
+            'Song3_ID': getSongID(song3), \
+            'Song4_ID': getSongID(song4), \
+            'Song5_ID': getSongID(song5)}
     return game
 
+# adds the game to the database
 def insertGame(game):
     collection = getDB()
     collection.insert(game)
 
+# prints all the entries of the database
 def printDB():
     collection = getDB()
     cursor = collection.find()
@@ -79,5 +95,7 @@ def printDB():
         print(cursor[i])
 
 printDB()
+print(getSongID('http://www.beethoven.com'))
+print(getSongID('http://www.mozart.com'))
 #print(isSongInDB('http://www.beethoven.com'))
 #print(isSongInDB('http://www.mozart.com'))
