@@ -1,3 +1,11 @@
+<?php
+if(isset($_POST['ytHash']))
+{
+	$hash = $_POST['ytHash'];
+	echo "Your hash was $hash \n\n";
+}
+?>
+
 <html>
 <body>
 <center>
