@@ -6,6 +6,41 @@ if(isset($_GET['g']))
 
 		var $title;
 		var $artist;
+		var $hash;
+		var $wrong1;
+		var $wrong2;
+		var $wrong3;
+
+		function song($theHash)
+		{
+			$this->hash = $theHash;
+			$this->title = getTitle($theHash);
+			$this->artist = getArtist($theHash);
+			$this->wrong1 = new song(getWrongTitle($theHash,1),getWrongArtist($theHash,1))
+			$this->wrong2 = new song(getWrongTitle($theHash,2),getWrongArtist($theHash,2))
+			$this->wrong3 = new song(getWrongTitle($theHash,3),getWrongArtist($theHash,3))
+		}
+		function song($theTitle, $theArtist)
+		{
+			$this->title = $theTitle;
+			$this->artist = $theArtist;
+		}
+
+		public function printFull()
+		{
+			echo $this->title . " by " . $this->artist;
+		}
+
+		public function getHash()
+		{
+			return $this->hash;
+		}
+		public function getWrong1()
+		{
+			return $this->wrong1;
+		}
+
+		
 	}
 	class game{
 		var $s1;
@@ -26,7 +61,29 @@ if(isset($_GET['g']))
 			$this->s4 = new song($h4);
 			$this->s5 = new song($h5);
 		}
+		public function getSong1()
+		{
+			return $this->s1;
+		}
+		public function getSong2()
+		{
+			return $this->s2;
+		}
+		public function getSong3()
+		{
+			return $this->s3;
+		}
+		public function getSong4()
+		{
+			return $this->s4;
+		}
+		public function getSong5()
+		{
+			return $this->s5;
+		}
 	}
+
+$game = new game();
 }
 
 ?>
@@ -46,23 +103,23 @@ window.onload=function(){
 		repeat: 'list',
 		playlist:
 		[{
-			file: 'http://www.youtube.com/watch?v=LOZuxwVk7TU', 
+			file: 'http://www.youtube.com/watch?v=<?php echo $game->getSong1()->getHash(); ?>', 
 			start: '<?php $start = rand(30,120); echo $start; ?>', 
 			duration: '<?php echo $start + 10; ?>'
 		},{
-			file: 'http://www.youtube.com/watch?v=PsO6ZnUZI0g', 
+			file: 'http://www.youtube.com/watch?v=<?php echo $game->getSong2()->getHash(); ?>', 
 			start: '<?php $start = rand(30,120); echo $start; ?>', 
 			duration: '<?php echo $start + 10; ?>'
 		},{
-			file: 'http://www.youtube.com/watch?v=qrO4YZeyl0I', 
+			file: 'http://www.youtube.com/watch?v=<?php echo $game->getSong3()->getHash(); ?>', 
 			start: '<?php $start = rand(30,120); echo $start; ?>', 
 			duration: '<?php echo $start + 10; ?>'
 		},{
-			file: 'http://www.youtube.com/watch?v=dQw4w9WgXcQ', 
+			file: 'http://www.youtube.com/watch?v=<?php echo $game->getSong4()->getHash(); ?>', 
 			start: '<?php $start = rand(30,120); echo $start; ?>', 
 			duration: '<?php echo $start + 10; ?>'
 		},{
-			file: 'http://www.youtube.com/watch?v=SRcnnId15BA', 
+			file: 'http://www.youtube.com/watch?v=<?php echo $game->getSong5()->getHash(); ?>', 
 			start: '<?php $start = rand(30,120); echo $start; ?>', 
 			duration: '<?php echo $start + 10; ?>'
 		}]		
@@ -97,10 +154,10 @@ $(document).ready(function(){
 	</div>
 </div>
 <div class="right">
-<div id="1"></div>
-<div id="2"> </div>
-<div id="3"> </div>
-<div id="4"> </div>
+<div id="1"><?php game->getSong1()->getWrong1()->printFull(); ?></div>
+<div id="2"><?php game->getSong1()->getWrong2()->printFull(); ?></div>
+<div id="3"><?php game->getSong1()->getWrong3()->printFull(); ?></div>
+<div id="4"><?php game->getSong1()->printFull(); ?></div>
 </div>
 
 </body>

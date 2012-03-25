@@ -1,6 +1,6 @@
 <?php
 
-function getArtist()
+function getArtistP()
 {
 $title = system("grep eow-title /var/www/watch*");
 $search = "title=";
@@ -11,7 +11,7 @@ $length = $pos2- ($pos+7);
 $artist = substr($title, $pos+7, $length);
 	return $artist;
 }
-function getSong()
+function getSongP()
 {
 $title = system("grep eow-title /var/www/watch*");
 $search = "title=";
