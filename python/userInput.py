@@ -217,7 +217,7 @@ def getAPIStuff(game):
     for i in range(0,4):
         artist = artistList[i]
         title = titleList[i]
-        data = pullAPI.pullAPIData('Kanye West','Stronger')
+        data = pullAPI.pullAPIData(artist,title)
         articlesList.append(data[0])
         #print(articles)
         #people = data[1]
