@@ -1,9 +1,21 @@
 <?php
+include('../ytShit/parse.php');
 if(isset($_POST['ytHash']))
 {
 	$hash = $_POST['ytHash'];
-	echo "Your hash was $hash \n\n";
+	//echo "Your hash was $hash \n\n";
+	$ytUrl = "http://www.youtube.com/watch?v=$hash";
+	//echo "url: $ytUrl\n\n";
+	
+	$wget = "wget -O /var/www/watch?v=$hash $ytUrl";
+	//echo $wget;
+	system($wget);
+	echo "Song: " . getSong(). " Artist: " . getArtist();
+	killFile();
+
 }
+else
+{
 ?>
 
 <html>
@@ -17,3 +29,7 @@ Yo give me a youtube hash: <br/><br/>
 </center>
 </body>
 </head>
+
+<?
+}
+?>
