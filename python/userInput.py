@@ -236,7 +236,17 @@ def writeAPIStuffToDB(userName, gameName):
     # (in principle people list is here somewhere)
     collection.update({'_id':game['_id']}, {'$set': {'Articles':articlesList}})
     collection.update({'_id':game['_id']}, {'$set': {'Hints':hintsList}})
-    
+
+def getAllArticles(userName, gameName):
+    #might want to check to see that articles field exists
+    # in game before going through with the whole method
+    # if it doesn't, just call writeAPIStuffToDB from here
+    collection = getDB()
+    game = collection.find_one({'UserName':userName,'GameName':gameName})
+    articlesList = game['Articles']
+    for articleListList in articlesList:
+        for dataList in articleListList:
+            printListForJohn(dataList)
 
     #print(answerListStr[1:len(answerListStr)-1].decode())
 #getAPIStuff(0)
