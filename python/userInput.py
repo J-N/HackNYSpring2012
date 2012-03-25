@@ -150,7 +150,7 @@ def getArtist(youTubeURL, outputToSTDOUT = False):
     else:
         return collection.find_one({'URL': youTubeURL})['Artist']
 
-def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
+def getIncorrectAnswers(youTubeURL, numOfIncorrect=2):
     artistName = getArtist(youTubeURL)
     songName = getTitle(youTubeURL)
     answerList = []
