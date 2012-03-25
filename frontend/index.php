@@ -10,8 +10,16 @@ if(isset($_POST['ytHash']))
 	$wget = "wget -O /var/www/watch?v=$hash $ytUrl";
 	//echo $wget;
 	system($wget);
-	echo "Song: " . getSong(). " Artist: " . getArtist();
+
+	$song = getSong();
+	$artist = getArtist();
+	//echo "Song: " . getSong(). " Artist: " . getArtist()."<br />";
 	killFile();
+
+	$insertString = "cd /var/www ; python -c 'import userInput; userInput.addSong(\"$hash\",\"$song\",\"$artist\")'";
+	//echo"ins string: $insertString";
+
+	system($insertString);
 
 }
 else
