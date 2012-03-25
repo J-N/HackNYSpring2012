@@ -173,6 +173,11 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
         print(answer+', '),
     return 0
 
+def printListForJohn(inList):
+    for item in inList:
+        print(item+', '),
+
+
 ################
 #Pull API Stuff#
 ################
