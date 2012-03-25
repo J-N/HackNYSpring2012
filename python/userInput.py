@@ -1,6 +1,10 @@
 #!pythonpath
 
 import pymongo
+import json
+import nbs
+
+
 
 def testMongoDB():
     connection = pymongo.Connection("chipper.bu.edu")
@@ -118,7 +122,16 @@ def printDB():
     for i in range(0,count):
         print(cursor[i])
 
-#printDB()
+# given youtube url returns song title from db
+def getTitle(youTubeURL):
+    collection = getDB()
+    return collection.find_one({'URL': youTubeURL})['Title']
+
+# given youtube url returns artist db
+def getArtist(youTubeURL):
+    collection = getDB()
+    return collection.find_one({'URL': youTubeURL})['Artist']
+
 #print(getSongID('http://www.beethoven.com'))
 #print(getSongID('http://www.mozart.com'))
 #print(isSongInDB('http://www.beethoven.com'))

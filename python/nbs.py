@@ -92,7 +92,33 @@ def getRandomSongByArtistLastFM(artist, isID):
     index = random.randint(0,limit-1)
     
     return songList[index]
-    
+
+def getListOfSongsByArtistLastFM(artist, isID):
+    limit = 10
+    if isID:
+        artistParam = 'mbid='\
+                      +getArtistMBID(artist)
+    else:
+        artistParam = 'artist='+artist
+
+    url = 'http://ws.audioscrobbler.com/2.0/?'\
+          +'method=artist.gettoptr'\
+          +'acks&'+artistParam+'&api_key=6d'\
+          +'fbebffcdefdd2771acd4061375bcf6'\
+          +'&format=json&limit='+str(limit)
+    response = getResponse(url)
+    try:
+        songJSONList = json.loads(response)\
+                   ['toptracks']['track']
+    except KeyError:
+        return 0
+    songList = []
+    for songDict in songJSONList:
+        songList.append(songDict['name'])
+    return songList
+
+def getIncorrectAnswers(songName, artistName, numOfIncorrect=3):
+   return 0 
     
 
 # to do: rank similar artists by popularity
