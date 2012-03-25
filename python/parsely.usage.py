@@ -32,3 +32,12 @@ while (status == False):
     status = True
 print(statusResponse)
 
+  # Post Request
+  #url = "http://hack.parsely.com/parse?"
+  #text = {"text" : "Hello World"}
+  # This encodes into a string with spaces replaced by + (serialized?)
+  #data = urllib.urlencode(text)
+  #req = urllib2.Request(url, data)
+  #response = urllib2.urlopen(req)
+  #page = response.read()
+  #print(page)
