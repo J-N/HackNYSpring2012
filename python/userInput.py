@@ -161,20 +161,20 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=2):
     similarArtistIDList = nbs.getSimilarArtists(artistID)   
     print("Num incorrect:")
     print(numOfIncorrect)
-    for i in range(0,numOfIncorrect):
+    #for i in range(0,numOfIncorrect):
         print('\n\nin range loop\n')
         artistIndex = random.randint(0,len(similarArtistIDList)-1)
         similarArtistID = similarArtistIDList[artistIndex]
         similarArtistName = nbs.getArtistName(similarArtistID)
         similarArtistSong = nbs.getRandomSongByArtistLastFM(\
             similarArtistID, True)
-        counter = 0
-        while similarArtistSong == songName:
-            similarArtistSong = nbs.getRandomSongByArtistLastFM(\
+        #counter = 0
+        #while similarArtistSong == songName:
+            #similarArtistSong = nbs.getRandomSongByArtistLastFM(\
                 similarArtistID, True)
-            if counter >= 5:
-                break
-            counter = counter + 1
+            #if counter >= 5:
+                #break
+            #counter = counter + 1
         answerList.append(similarArtistSong)
         answerList.append(similarArtistName)
     
