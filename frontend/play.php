@@ -1,7 +1,8 @@
 <?php
-include("../phpShit/common.h");
-if(isset($_GET['g']))
-{
+session_start();
+include('../phpShit/common.php');
+//if(isset($_GET['g']))
+//{
 	class song{
 
 		var $title;
@@ -11,19 +12,33 @@ if(isset($_GET['g']))
 		var $wrong2;
 		var $wrong3;
 
-		function song($theHash)
+		function song()
 		{
-			$this->hash = $theHash;
-			$this->title = getTitle($theHash);
-			$this->artist = getArtist($theHash);
-			$this->wrong1 = new song(getWrongTitle($theHash,1),getWrongArtist($theHash,1))
-			$this->wrong2 = new song(getWrongTitle($theHash,2),getWrongArtist($theHash,2))
-			$this->wrong3 = new song(getWrongTitle($theHash,3),getWrongArtist($theHash,3))
-		}
-		function song($theTitle, $theArtist)
-		{
-			$this->title = $theTitle;
-			$this->artist = $theArtist;
+			$numargs = func_num_args();
+			$args= func_get_args();
+			if($numargs==1)
+			{
+				//$theHash=$args[0];
+				$num = $args[0];
+			$this->hash = $_SESSION['hashes'][$num];
+			$this->title = $_SESSION['songs'][$num];
+			$this->artist = $_SESSION['artists'][$num];
+			//$this->title = getTitle($theHash);
+			//$this->artist = getArtist($theHash);
+			//$this->wrong1 = new song(getWrongTitle($this->hash,1),getWrongArtist($this->hash,1));
+			$this->wrong1 = new song("Title","Artist");
+			$this->wrong2 = new song("Title2","Artist2");
+			$this->wrong3 = new song("Title3","Artist3");
+			//$this->wrong2 = new song(getWrongTitle($theHash,2),getWrongArtist($theHash,2));
+			//$this->wrong3 = new song(getWrongTitle($theHash,3),getWrongArtist($theHash,3));
+			}
+			else
+			{
+				$theTitle = $args[0];
+				$theArtist = $args[1];
+				$this->title = $theTitle;
+				$this->artist = $theArtist;
+			}
 		}
 
 		public function printFull()
@@ -38,6 +53,14 @@ if(isset($_GET['g']))
 		public function getWrong1()
 		{
 			return $this->wrong1;
+		}
+		public function getWrong2()
+		{
+			return $this->wrong2;
+		}
+		public function getWrong3()
+		{
+			return $this->wrong3;
 		}
 
 		
@@ -55,11 +78,16 @@ if(isset($_GET['g']))
 		{
 			$this->title = $theGame;
 			$this->username = $theUser;
-			$this->s1 = new song($h1);
-			$this->s2 = new song($h2);
-			$this->s3 = new song($h3);
-			$this->s4 = new song($h4);
-			$this->s5 = new song($h5);
+			//$this->s1 = new song($h1);
+			//$this->s2 = new song($h2);
+			//$this->s3 = new song($h3);
+			//$this->s4 = new song($h4);
+			//$this->s5 = new song($h5);
+			$this->s1 = new song(0);
+			$this->s2 = new song(1);
+			$this->s3 = new song(2);
+			$this->s4 = new song(3);
+			$this->s5 = new song(4);
 		}
 		public function getSong1()
 		{
@@ -83,8 +111,8 @@ if(isset($_GET['g']))
 		}
 	}
 
-$game = new game();
-}
+$game = new game($_SESSION['username'],$_SESSION['gamename'],$_SESSION['hashes'][0], $_SESSION['hashes'][1],$_SESSION['hashes'][2], $_SESSION['hashes'][3], $_SESSION['hashes'][4] );
+//}
 
 ?>
 
@@ -136,28 +164,29 @@ $(document).ready(function(){
 	//var clock = $('.final_countdown .value');
 	//Application.timer.countdown_from(clock, 12);
 });
-
+	
 </script>
 
 </head>
 <body>
-  <div id="player"></div>
+<div class="float_left">
+<div id="player"></div>
 <div class="final_countdown">
-          <div class="value">
+	<div class="value">
             <div><span class="seconds large">00</span></div>
             <div><span class="milliseconds large">00</span></div>
-          </div>
-          <div class="key">
+        </div>
+        <div class="key">
             <div><span>Seconds</span></div>
             <div><span>Miliseconds</span></div>
-          </div>
-	</div>
+        </div>
 </div>
-<div class="right">
-<div id="1"><?php game->getSong1()->getWrong1()->printFull(); ?></div>
-<div id="2"><?php game->getSong1()->getWrong2()->printFull(); ?></div>
-<div id="3"><?php game->getSong1()->getWrong3()->printFull(); ?></div>
-<div id="4"><?php game->getSong1()->printFull(); ?></div>
+</div>
+<div id="brand_text" class="float_right">
+<div id="1"><?php $game->getSong1()->getWrong1()->printFull(); ?></div>
+<div id="2"><?php $game->getSong1()->getWrong2()->printFull(); ?></div>
+<div id="3"><?php $game->getSong1()->getWrong3()->printFull(); ?></div>
+<div id="4"><?php  $game->getSong1()->printFull(); ?></div>
 </div>
 
 </body>
