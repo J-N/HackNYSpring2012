@@ -25,12 +25,12 @@ include('../phpShit/common.php');
 			$this->artist = $_SESSION['artists'][$num];
 			//$this->title = getTitle($theHash);
 			//$this->artist = getArtist($theHash);
-			//$this->wrong1 = new song(getWrongTitle($this->hash,1),getWrongArtist($this->hash,1));
-			$this->wrong1 = new song("Title","Artist");
-			$this->wrong2 = new song("Title2","Artist2");
-			$this->wrong3 = new song("Title3","Artist3");
-			//$this->wrong2 = new song(getWrongTitle($theHash,2),getWrongArtist($theHash,2));
-			//$this->wrong3 = new song(getWrongTitle($theHash,3),getWrongArtist($theHash,3));
+			$this->wrong1 = new song(getWrongTitle($this->hash,1),getWrongArtist($this->hash,1));
+			//$this->wrong1 = new song("Title","Artist");
+			//$this->wrong2 = new song("Title2","Artist2");
+			//$this->wrong3 = new song("Title3","Artist3");
+			$this->wrong2 = new song(getWrongTitle($this->hash,2),getWrongArtist($this->hash,2));
+			$this->wrong3 = new song(getWrongTitle($this->hash,3),getWrongArtist($this->hash,3));
 			}
 			else
 			{
@@ -182,11 +182,16 @@ $(document).ready(function(){
         </div>
 </div>
 </div>
-<div id="brand_text" class="float_right">
-<div id="1"><?php $game->getSong1()->getWrong1()->printFull(); ?></div>
-<div id="2"><?php $game->getSong1()->getWrong2()->printFull(); ?></div>
-<div id="3"><?php $game->getSong1()->getWrong3()->printFull(); ?></div>
-<div id="4"><?php  $game->getSong1()->printFull(); ?></div>
+<div id="brand_text" class="float_right" style="text-align: center;
+position: relative;
+left: -25%;
+font-size: 160%;">
+<form>
+
+<div id="1"><input type="radio" name="guess" value="1"/ ><?php $game->getSong1()->getWrong1()->printFull(); ?></div>
+<div id="2"><input type="radio" name="guess" value="2" /><?php $game->getSong1()->getWrong2()->printFull(); ?></div>
+<div id="3"><input type="radio" name="guess" value="3" /><?php $game->getSong1()->getWrong3()->printFull(); ?></div>
+<div id="4"><input type="radio" name="guess" value="4" /><?php  $game->getSong1()->printFull(); ?></div>
 </div>
 
 </body>
