@@ -9,7 +9,10 @@ def getResponse(urlToSend):
 
 def getArtistID(artistName):
     url = 'http://samjkohn.api3.nextbigsound.com/'\
-         +'artists/search.json?q=Kanye'
+         +'artists/search.json?'
+    artistEncode = { 'q':artistName}
+    encodedArtistUrl = urllib.urlencode(artistEncode)
+    url = url + encodedArtistUrl
     print(url)
     response = getResponse(url)
     artist = json.loads(response)
