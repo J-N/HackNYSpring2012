@@ -99,7 +99,6 @@ def getListOfSongsByArtistLastFM(artist, isID):
     return songList
 
 
-    
 
 # to do: rank similar artists by popularity
 # to return the most relevant other choices

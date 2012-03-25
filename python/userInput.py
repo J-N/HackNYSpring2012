@@ -4,6 +4,7 @@ import pymongo
 import json
 import nbs
 import random
+import pullAPI
 
 
 
@@ -117,7 +118,7 @@ def insertGame(game):
     collection = getDB()
     collection.insert(game)
     print(collection.find_one({'UserName':game['UserName'],\
-                               'GameName':game['GameName']},'_id':1)
+                               'GameName':game['GameName']},'_id'))
 
 # prints all the entries of the database
 def printDB():
@@ -170,9 +171,25 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
 
     for answer in answerList:
         print(answer+', '),
+    return 0
+
+################
+#Pull API Stuff#
+################
+
+def getAPIStuff(game):
+    artistList = []
+    titleList = []
+    
+    data1 = pullAPI.pullAPIData('Kanye West','Stronger')
+    articles1 = data1[0]
+    print(articles1)
+    #people1 = data1[1]
+    hints1 = data1[2]
+    print(hints1)
 
     #print(answerListStr[1:len(answerListStr)-1].decode())
-
+#getAPIStuff(0)
 #getIncorrectAnswers('PsO6ZnUZI0g')
 #print(getSongID('http://www.beethoven.com'))
 #print(getSongID('http://www.mozart.com'))
