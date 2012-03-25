@@ -32,9 +32,22 @@ def isSongInDB(youTubeURL):
     else:
         return True
 
+# returns true if the URL is 10 alphanumeric characters,
+# false otherwise
+def isValidYouTubeURL(youTubeURL):
+    urlLength = 10
+    if len(youTubeURL)==urlLength:
+        if isalnum(youTubeURL):
+            return True
+        else:
+            return False
+    else:
+        return False
 
 # Adds the given song to the db returned by getDB()
 def addSong(youTubeURL, songTitle, songArtist):
+    if isValidYouTubeURL(youTubeURL)==False:
+        return False
     collection = getDB()
     song = {'URL': youTubeURL, 'Title': songTitle, 'Artist': songArtist}
     print(song)
@@ -50,8 +63,11 @@ def removeSong(youTubeURL, songTitle, songArtist):
     collection = getDB()
     song = {'URL': youTubeURL, 'Title': songTitle, 'Artist': songArtist}
     print(song)
-    collection.remove(song)
-    print('removed song')
+    try:
+        collection.remove(song, True)
+        print('removed song')
+    except pymongo.errors.OperationFailure:
+        print('song does not exist or could not be removed')
 
 def getSongID(youTubeURL):
     collection = getDB()
