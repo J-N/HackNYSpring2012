@@ -6,12 +6,17 @@ include('../phpShit/common.php');
 <html>
 <head>
  <link href="http://hackerleague.org/assets/application-da9448e0ee4efa1d7b1830eec79bd41e.css" media="all" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" />
 <script type='text/javascript' src="http://player.longtailvideo.com/jwplayer.js"></script>
 <script src="http://hackerleague.org/assets/application-8c2b636f01d3b7ed1480810e93baaa2c.js" type="text/javascript"></script>
 
 
 </head>
 <body>
+<script type="text/javascript">
+	$("#test").text("Hello world");
+</script>
+<div id="test"></div>
 <div id="shit" style="display:none;">
 <?php
 //if(isset($_GET['g']))
