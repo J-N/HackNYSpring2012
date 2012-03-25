@@ -125,12 +125,12 @@ def printDB():
 # given youtube url returns song title from db
 def getTitle(youTubeURL):
     collection = getDB()
-    return collection.find_one({'URL': youTubeURL})['Title']
+    print(collection.find_one({'URL': youTubeURL})['Title'])
 
 # given youtube url returns artist db
 def getArtist(youTubeURL):
     collection = getDB()
-    return collection.find_one({'URL': youTubeURL})['Artist']
+    print(collection.find_one({'URL': youTubeURL})['Artist'])
 
 #print(getSongID('http://www.beethoven.com'))
 #print(getSongID('http://www.mozart.com'))

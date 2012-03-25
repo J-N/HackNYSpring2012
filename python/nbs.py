@@ -45,11 +45,12 @@ def getArtistGenres(artistID):
     return genreList
 
 # deprecated :-P
-def getSimilarArtistsLastFM(artistName):
+def getSimilarArtistsLastFM(artistName, number = 10):
     url = 'http://ws.audioscrobbler.com/2.0/'\
           +'?method=artist.getsimilar&artist='\
           +artistName+'&api_key=6dfbebffcdefdd'\
-          +'2771acd4061375bcf6&limit=5&format=json'
+          +'2771acd4061375bcf6&limit='+number\
+          +'&format=json'
     response = getResponse(url)
     similarJSONList = json.loads(response)['similarartists']['artist']
     similarList = []
@@ -57,7 +58,8 @@ def getSimilarArtistsLastFM(artistName):
         similarList.append(artistDict['name'])
     return similarList
 
-def getSimilarArtists(artistID, number = 5):
+# returns the NBS artist ID of similar artists
+def getSimilarArtists(artistID, number = 10):
     url = 'http://samjkohn.api3.nextbigsound.com/'\
           +'artists/similar/'+artistID+'.json'
     response = getResponse(url)
@@ -68,29 +70,8 @@ def getSimilarArtists(artistID, number = 5):
 # isID should be True if artist is the NBS ID
 # false if it's the artist's name
 def getRandomSongByArtistLastFM(artist, isID):
-    limit = 10
-    if isID:
-        artistParam = 'mbid='\
-                      +getArtistMBID(artist)
-    else:
-        artistParam = 'artist='+artist
-
-    url = 'http://ws.audioscrobbler.com/2.0/?'\
-          +'method=artist.gettoptr'\
-          +'acks&'+artistParam+'&api_key=6d'\
-          +'fbebffcdefdd2771acd4061375bcf6'\
-          +'&format=json&limit='+str(limit)
-    response = getResponse(url)
-    try:
-        songJSONList = json.loads(response)\
-                   ['toptracks']['track']
-    except KeyError:
-        return 0
-    songList = []
-    for songDict in songJSONList:
-        songList.append(songDict['name'])
+    songList = getListOfSongsByArtistLastFM(artist, isID)
     index = random.randint(0,limit-1)
-    
     return songList[index]
 
 def getListOfSongsByArtistLastFM(artist, isID):
@@ -118,7 +99,23 @@ def getListOfSongsByArtistLastFM(artist, isID):
     return songList
 
 def getIncorrectAnswers(songName, artistName, numOfIncorrect=3):
-   return 0 
+    answerList = []
+    artistID = getArtistID(artistName)
+    if artistID == 0:
+        return 0
+    #else:
+    similarArtistIDList = getSimilarArtists(artistID)   
+    for i in range(0,numOfIncorrect-1):
+        artistIndex = random.randint(0,len(similarArtistIDList)-1)
+        similarArtistID = similarArtistIDList[artistIndex]
+        similarArtistName = getArtistName(similarArtistID)
+        similarArtistSong = getRandomSongByArtistLastFM(\
+            similarArtistID, True)
+        answerList.append(similarArtistSong)
+        answerList.append(similarArtistName)
+
+    return answerList
+
     
 
 # to do: rank similar artists by popularity
