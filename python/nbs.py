@@ -71,7 +71,7 @@ def getSimilarArtists(artistID, number = 10):
 # false if it's the artist's name
 def getRandomSongByArtistLastFM(artist, isID):
     songList = getListOfSongsByArtistLastFM(artist, isID)
-    index = random.randint(0,limit-1)
+    index = random.randint(0,len(songList)-1)
     return songList[index]
 
 def getListOfSongsByArtistLastFM(artist, isID):
@@ -98,23 +98,6 @@ def getListOfSongsByArtistLastFM(artist, isID):
         songList.append(songDict['name'])
     return songList
 
-def getIncorrectAnswers(songName, artistName, numOfIncorrect=3):
-    answerList = []
-    artistID = getArtistID(artistName)
-    if artistID == 0:
-        return 0
-    #else:
-    similarArtistIDList = getSimilarArtists(artistID)   
-    for i in range(0,numOfIncorrect-1):
-        artistIndex = random.randint(0,len(similarArtistIDList)-1)
-        similarArtistID = similarArtistIDList[artistIndex]
-        similarArtistName = getArtistName(similarArtistID)
-        similarArtistSong = getRandomSongByArtistLastFM(\
-            similarArtistID, True)
-        answerList.append(similarArtistSong)
-        answerList.append(similarArtistName)
-
-    return answerList
 
     
 

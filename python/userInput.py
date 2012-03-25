@@ -3,6 +3,7 @@
 import pymongo
 import json
 import nbs
+import random
 
 
 
@@ -132,6 +133,37 @@ def getArtist(youTubeURL):
     collection = getDB()
     print(collection.find_one({'URL': youTubeURL})['Artist'])
 
+def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
+    artistName = getArtist(youTubeURL)
+    songName = getTitle(youTubeURL)
+    answerList = []
+    artistID = nbs.getArtistID(artistName)
+    if artistID == 0:
+        return 0
+    #else:
+    similarArtistIDList = nbs.getSimilarArtists(artistID)   
+    for i in range(0,numOfIncorrect-1):
+        artistIndex = random.randint(0,len(similarArtistIDList)-1)
+        similarArtistID = similarArtistIDList[artistIndex]
+        similarArtistName = nbs.getArtistName(similarArtistID)
+        similarArtistSong = nbs.getRandomSongByArtistLastFM(\
+            similarArtistID, True)
+        counter = 0
+        while similarArtistSong == songName:
+            similarArtistSong = nbs.getRandomSongByArtistLastFM(\
+                similarArtistID, True)
+            if counter >= 5:
+                break
+            counter = counter + 1
+        answerList.append(similarArtistSong)
+        answerList.append(similarArtistName)
+
+    answerListStr = str(answerList)
+    
+
+    print(answerListStr[1:len(answerListStr)-1])
+
+getIncorrectAnswers('PsO6ZnUZI0g')
 #print(getSongID('http://www.beethoven.com'))
 #print(getSongID('http://www.mozart.com'))
 #print(isSongInDB('http://www.beethoven.com'))
