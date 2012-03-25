@@ -52,8 +52,8 @@ def isValidYouTubeURL(youTubeURL):
 
 # Adds the given song to the db returned by getDB()
 def addSong(youTubeURL, songTitle, songArtist):
-    if isValidYouTubeURL(youTubeURL)==False:
-        return False
+    #if isValidYouTubeURL(youTubeURL)==False:
+     #   return False
     collection = getDB()
     song = {'URL': youTubeURL, 'Title': songTitle, 'Artist': songArtist}
     print(song)
@@ -99,11 +99,11 @@ def testAddSong():
 def getGame(userName, gameName, song1, song2, song3, song4, song5):
     game = {'UserName': userName, \
             'GameName': gameName, \
-            'Song1_ID': getSongID(song1), \
-            'Song2_ID': getSongID(song2), \
-            'Song3_ID': getSongID(song3), \
-            'Song4_ID': getSongID(song4), \
-            'Song5_ID': getSongID(song5)}
+            'Song1_ID': song1, \
+            'Song2_ID': song2, \
+            'Song3_ID': song3, \
+            'Song4_ID': song4, \
+            'Song5_ID': song5}
     return game
 
 
@@ -180,13 +180,58 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
 def getAPIStuff(game):
     artistList = []
     titleList = []
+
+    artist = getArtist(game['Song1'])
+    title = getTitle(game['Song1'])
+    artistList.append(artist)
+    titleList.append(title)
     
-    data1 = pullAPI.pullAPIData('Kanye West','Stronger')
-    articles1 = data1[0]
-    print(articles1)
-    #people1 = data1[1]
-    hints1 = data1[2]
-    print(hints1)
+    artist = getArtist(game['Song2'])
+    title = getTitle(game['Song2'])
+    artistList.append(artist)
+    titleList.append(title)
+    
+    artist = getArtist(game['Song3'])
+    title = getTitle(game['Song3'])
+    artistList.append(artist)
+    titleList.append(title)
+
+    artist = getArtist(game['Song4'])
+    title = getTitle(game['Song4'])
+    artistList.append(artist)
+    titleList.append(title)
+
+    artist = getArtist(game['Song5'])
+    title = getTitle(game['Song5'])
+    artistList.append(artist)
+    titleList.append(title)
+
+    articlesList = []
+    #peopleList = []
+    hintsList = []
+    
+    for i in range(0,4):
+        artist = artistList[i]
+        title = titleList[i]
+        data = pullAPI.pullAPIData('Kanye West','Stronger')
+        articlesList.append(data[0])
+        #print(articles)
+        #people = data[1]
+        hintsList.append(data[2])
+        #print(hints)
+    returnList = [articlesList, hintsList]
+    return returnList
+
+def writeAPIStuffToDB(userName, gameName):
+    collection = getDB()
+    game = collection.find_one({'UserName':userName,'GameName':gameName})
+    bigList = getAPIStuff(game)
+    articlesList = bigList[0]
+    hintsList = bigList[1]
+    # (in principle people list is here somewhere)
+    collection.update({'_id':game['_id']})
+    
+    
 
     #print(answerListStr[1:len(answerListStr)-1].decode())
 #getAPIStuff(0)
