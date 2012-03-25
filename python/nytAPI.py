@@ -21,9 +21,9 @@ def nytimesData():
   nytArticleJSON = getRequest(nytArticleUrl)
   # article sets the mode to look for the correct article fields
   # Output is a list full of strings
-  articleData = parseJSON.parseJSON(nytArticleJSON, "article")
-  print(articleData)
-  print('\n\n')
+  articleData = parseJSON.parseJSONnytimes(nytArticleJSON, "article")
+  #print(articleData)
+  #print('\n\n')
 
   # Semantic Person Database
   # Format is "lastname, firstname"
@@ -38,19 +38,9 @@ def nytimesData():
   nytSemanticJSON = getRequest(nytSemanticUrl)
   # semantic sets the mode to look for the correct article fields
   # Output is a list full of strings
-  semanticData = parseJSON.parseJSON(nytSemanticJSON, "semantic")
-  print(semanticData)
-
+  semanticData = parseJSON.parseJSONnytimes(nytSemanticJSON, "semantic")
+  #print(semanticData)
+  
+  data = [ articleData, semanticData ]
+  return data
   #print(nytSemanticUrl)
-
-  # Post Request
-  #url = "http://hack.parsely.com/parse?"
-  #text = {"text" : "Hello World"}
-  # This encodes into a string with spaces replaced by + (serialized?)
-  #data = urllib.urlencode(text)
-  #req = urllib2.Request(url, data)
-  #response = urllib2.urlopen(req)
-  #page = response.read()
-  #print(page)
-
-nytimesData()

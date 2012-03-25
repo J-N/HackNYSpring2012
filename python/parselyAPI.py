@@ -50,9 +50,7 @@ def parseLyrics():
   parselyUrl = parselyLyrics(lyrics)
   response = urllib2.urlopen(parselyUrl)
   html = response.read()
-  print(html)
+  #print(html)
   
   #print(lyrics)
-  #return(lyrics)
-  
-parseLyrics()
+  return html
