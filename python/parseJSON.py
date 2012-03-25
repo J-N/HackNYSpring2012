@@ -20,11 +20,16 @@ def parseJSONnytimes(jsonobject, mode):
 			infoList[0].append(data['results'][i]['title'])
 			infoList[1].append(data['results'][i]['url'])
 			infoList[2].append(data['results'][i]['date'])
-			
+		for list in infoList:
+			for string in list:
+				# Unicode and whitespace tab vs space is stupid. Seriously
+				string = string.encode('utf-8')
 	elif (mode == 'semantic'):
 	
 		infoList = data['results'][0]['pages']
-		
+		for string in list:
+			# Unicode and whitespace tab vs space is stupid. Seriously
+			string = string.encode('utf-8')
 	return infoList
 	
 def parseJSONlyrics(jsonobject):
@@ -53,6 +58,6 @@ def parseJSONlyrics(jsonobject):
 		match = re.search('\xa0', titleList[i])
 		if match:
 			titleList[i] = titleList[i].replace(u'\xa0', ' ')
-		
+		titleList[i] = titleList[i].encode('utf-8')
 			
 	return titleList

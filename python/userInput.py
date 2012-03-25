@@ -6,7 +6,11 @@ import nbs
 import random
 import pullAPI
 
-
+def printListForJohn(inList):
+    for item in inList:
+        # Assume this is in unicode, but this generally seems to be true
+        item = item.encode('utf-8')
+        print(item+', '),
 
 def testMongoDB():
     connection = pymongo.Connection("chipper.bu.edu")
@@ -168,14 +172,9 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
             counter = counter + 1
         answerList.append(similarArtistSong)
         answerList.append(similarArtistName)
-
-    for answer in answerList:
-        print(answer+', '),
+    
+    printListForJohn(answerList)
     return 0
-
-def printListForJohn(inList):
-    for item in inList:
-        print(item+', '),
 
 
 ################
@@ -247,6 +246,13 @@ def getAllArticles(userName, gameName):
     for articleListList in articlesList:
         for dataList in articleListList:
             printListForJohn(dataList)
+
+def getAllHints(userName, gameName):
+    collection = getDB()
+    game = collection.find_one({'UserName':userName,'GameName':gameName})
+    hintsList = game['Hints']
+    for hintsData in hintsList:
+        printListForJohn(hintsData)
 
     #print(answerListStr[1:len(answerListStr)-1].decode())
 #getAPIStuff(0)
