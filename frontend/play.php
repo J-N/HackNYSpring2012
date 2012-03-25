@@ -153,10 +153,10 @@ left: -25%;
 font-size: 160%;">
 <form>
 
-<div id="1"><input id="1" type="radio" name="guess" value="1"/ ><?php $game->getSong1()->getWrong1()->printFull(); ?></div>
-<div id="2"><input id="2" type="radio" name="guess" value="2" /><?php $game->getSong1()->getWrong2()->printFull(); ?></div>
-<div id="3"><input id="3" type="radio" name="guess" value="3" /><?php $game->getSong1()->getWrong3()->printFull(); ?></div>
-<div id="4"><input id="4" type="radio" name="guess" value="4" /><?php  $game->getSong1()->printFull(); ?></div>
+<div id="1"><input id="r1" type="radio" name="guess" value="1"/ ><?php $game->getSong1()->getWrong1()->printFull(); ?></div>
+<div id="2"><input id="r2" type="radio" name="guess" value="2" /><?php $game->getSong1()->getWrong2()->printFull(); ?></div>
+<div id="3"><input id="r3" type="radio" name="guess" value="3" /><?php $game->getSong1()->getWrong3()->printFull(); ?></div>
+<div id="4"><input id="r4" type="radio" name="guess" value="4" /><?php  $game->getSong1()->printFull(); ?></div>
 </div>
 
 </body>
@@ -198,7 +198,7 @@ window.onload=function(){
 //});
 	//jwplayer().onPause( function() { this.play(); });
 //jwplayer().onComplete( function() { 
-	if(document.getElementById('4').checked)
+	if(document.getElementById('r4').checked)
 	{
 		alert("you got it right");
 	}	});
