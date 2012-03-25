@@ -173,6 +173,11 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
         print(answer+', '),
     return 0
 
+def printListForJohn(inList):
+    for item in inList:
+        print(item+', '),
+
+
 ################
 #Pull API Stuff#
 ################
@@ -181,28 +186,28 @@ def getAPIStuff(game):
     artistList = []
     titleList = []
 
-    artist = getArtist(game['Song1'])
-    title = getTitle(game['Song1'])
+    artist = getArtist(game['Song1_ID'])
+    title = getTitle(game['Song1_ID'])
     artistList.append(artist)
     titleList.append(title)
     
-    artist = getArtist(game['Song2'])
-    title = getTitle(game['Song2'])
+    artist = getArtist(game['Song2_ID'])
+    title = getTitle(game['Song2_ID'])
     artistList.append(artist)
     titleList.append(title)
     
-    artist = getArtist(game['Song3'])
-    title = getTitle(game['Song3'])
+    artist = getArtist(game['Song3_ID'])
+    title = getTitle(game['Song3_ID'])
     artistList.append(artist)
     titleList.append(title)
 
-    artist = getArtist(game['Song4'])
-    title = getTitle(game['Song4'])
+    artist = getArtist(game['Song4_ID'])
+    title = getTitle(game['Song4_ID'])
     artistList.append(artist)
     titleList.append(title)
 
-    artist = getArtist(game['Song5'])
-    title = getTitle(game['Song5'])
+    artist = getArtist(game['Song5_ID'])
+    title = getTitle(game['Song5_ID'])
     artistList.append(artist)
     titleList.append(title)
 
@@ -229,9 +234,19 @@ def writeAPIStuffToDB(userName, gameName):
     articlesList = bigList[0]
     hintsList = bigList[1]
     # (in principle people list is here somewhere)
-    collection.update({'_id':game['_id']})
-    
-    
+    collection.update({'_id':game['_id']}, {'$set': {'Articles':articlesList}})
+    collection.update({'_id':game['_id']}, {'$set': {'Hints':hintsList}})
+
+def getAllArticles(userName, gameName):
+    #might want to check to see that articles field exists
+    # in game before going through with the whole method
+    # if it doesn't, just call writeAPIStuffToDB from here
+    collection = getDB()
+    game = collection.find_one({'UserName':userName,'GameName':gameName})
+    articlesList = game['Articles']
+    for articleListList in articlesList:
+        for dataList in articleListList:
+            printListForJohn(dataList)
 
     #print(answerListStr[1:len(answerListStr)-1].decode())
 #getAPIStuff(0)
