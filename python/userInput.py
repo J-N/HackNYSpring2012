@@ -124,14 +124,20 @@ def printDB():
         print(cursor[i])
 
 # given youtube url returns song title from db
-def getTitle(youTubeURL):
+def getTitle(youTubeURL, outputToSTDOUT = False):
     collection = getDB()
-    print(collection.find_one({'URL': youTubeURL})['Title'])
+    if outputToSTDOUT:
+        print(collection.find_one({'URL': youTubeURL})['Title'])
+    else:
+        return collection.find_one({'URL': youTubeURL})['Title']
 
 # given youtube url returns artist db
-def getArtist(youTubeURL):
+def getArtist(youTubeURL, outputToSTDOUT = False):
     collection = getDB()
-    print(collection.find_one({'URL': youTubeURL})['Artist'])
+    if outputToSTDOUT:
+        print(collection.find_one({'URL': youTubeURL})['Artist'])
+    else:
+        return collection.find_one({'URL': youTubeURL})['Artist']
 
 def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
     artistName = getArtist(youTubeURL)
@@ -159,11 +165,11 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
         answerList.append(similarArtistName)
 
     answerListStr = str(answerList)
-    
+    for answer in answerList:
+        print(answer+', '),
 
-    print(answerListStr[1:len(answerListStr)-1])
+    #print(answerListStr[1:len(answerListStr)-1].decode())
 
-getIncorrectAnswers('PsO6ZnUZI0g')
 #print(getSongID('http://www.beethoven.com'))
 #print(getSongID('http://www.mozart.com'))
 #print(isSongInDB('http://www.beethoven.com'))
