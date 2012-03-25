@@ -38,9 +38,12 @@ def addSong(youTubeURL, songTitle, songArtist):
     collection = getDB()
     song = {'URL': youTubeURL, 'Title': songTitle, 'Artist': songArtist}
     print(song)
-    collection.insert(song)
-    print('inserted song')
-    print(collection.find(song)[0])
+    if isSongInDB(youTubeURL)==False:
+        collection.insert(song)
+        print('inserted song')
+        print(collection.find(song)[0])
+    else:
+        print('song already in DB')
     
 # Removes the given song from the db returned by getDB()
 def removeSong(youTubeURL, songTitle, songArtist):
