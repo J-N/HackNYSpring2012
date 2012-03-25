@@ -14,7 +14,7 @@ def nytimesData(artist):
   # NYTimes api calls:
   # Article Query
   # enter query here. If multiple words, must by connected with a "+", but 
-  # urlencode takes care of this
+  # urlencode takes care of this. Artist name must be lower case
   artist = artist.lower()
   artQuery = artist
   artQueryEncode = { "query" : artQuery }
