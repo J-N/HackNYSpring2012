@@ -105,6 +105,8 @@ def getGame(userName, gameName, song1, song2, song3, song4, song5):
             'Song5_ID': getSongID(song5)}
     return game
 
+
+
 # adds the game to the database
 # before doing this you should:
 # addSong() for each song in the game
@@ -114,6 +116,8 @@ def getGame(userName, gameName, song1, song2, song3, song4, song5):
 def insertGame(game):
     collection = getDB()
     collection.insert(game)
+    print(collection.find_one({'UserName':game['UserName'],\
+                               'GameName':game['GameName']},'_id':1)
 
 # prints all the entries of the database
 def printDB():
@@ -164,7 +168,6 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
         answerList.append(similarArtistSong)
         answerList.append(similarArtistName)
 
-    answerListStr = str(answerList)
     for answer in answerList:
         print(answer+', '),
 
