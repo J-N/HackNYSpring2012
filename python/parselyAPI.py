@@ -7,18 +7,18 @@ import parseJSON
 def getLyrics(artist, title):
   urlBase = "http://www.azlyrics.com/lyrics/"
   artist = artist.lower()
-  artist = re.findall("\w*",artist)
+  # Removes spaces from artist name and title
   urlArtist = ""
-  for i in range(len(artist)):
-    if (i%2 == 0):
-      urlArtist += artist[i]
+  for a in artist:
+    if (a.isalnum() == True):
+      urlArtist += a
   title = title.lower()
   urlTitle = ""
   for a in title:
     if (a.isalnum() == True):
       urlTitle += a
   url = urlBase + urlArtist + "/" + urlTitle + ".html"
-  #print(url)
+  print(url)
   response = urllib2.urlopen(url)
   html = response.read()
   #print(html)
