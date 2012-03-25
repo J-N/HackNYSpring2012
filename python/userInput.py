@@ -136,6 +136,7 @@ def printDB():
 def getTitle(youTubeURL, outputToSTDOUT = False):
     collection = getDB()
     if outputToSTDOUT:
+        print("shouldnt be doing this")
         print(collection.find_one({'URL': youTubeURL})['Title'])
     else:
         return collection.find_one({'URL': youTubeURL})['Title']
@@ -144,6 +145,7 @@ def getTitle(youTubeURL, outputToSTDOUT = False):
 def getArtist(youTubeURL, outputToSTDOUT = False):
     collection = getDB()
     if outputToSTDOUT:
+        print("shouldnt be doing this")
         print(collection.find_one({'URL': youTubeURL})['Artist'])
     else:
         return collection.find_one({'URL': youTubeURL})['Artist']
@@ -158,6 +160,7 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
     #else:
     similarArtistIDList = nbs.getSimilarArtists(artistID)   
     for i in range(0,numOfIncorrect):
+        print('\n\nin range loop\n')
         artistIndex = random.randint(0,len(similarArtistIDList)-1)
         similarArtistID = similarArtistIDList[artistIndex]
         similarArtistName = nbs.getArtistName(similarArtistID)
