@@ -82,6 +82,11 @@ def getGame(userName, gameName, song1, song2, song3, song4, song5):
     return game
 
 # adds the game to the database
+# before doing this you should:
+# addSong() for each song in the game
+# get a username and a game name (to identify
+# multiple games per user)
+# use the output of getGame() as input to insertGame()
 def insertGame(game):
     collection = getDB()
     collection.insert(game)
