@@ -94,8 +94,8 @@ def printDB():
     for i in range(0,count):
         print(cursor[i])
 
-printDB()
-print(getSongID('http://www.beethoven.com'))
-print(getSongID('http://www.mozart.com'))
+#printDB()
+#print(getSongID('http://www.beethoven.com'))
+#print(getSongID('http://www.mozart.com'))
 #print(isSongInDB('http://www.beethoven.com'))
 #print(isSongInDB('http://www.mozart.com'))

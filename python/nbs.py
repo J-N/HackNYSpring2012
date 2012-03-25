@@ -27,8 +27,14 @@ def getArtistGenres(artistID):
         genreList.append(genreDict[key]['name'])
     return genreList
 
-
-
+def getSimilarArtists(artistName):
+    url = 'http://ws.audioscrobbler.com/2.0/'\
+          +'?method=artist.getsimilar&artist='\
+          +artistName+'&api_key=6dfbebffcdefdd'\
+          +'2771acd4061375bcf6'
+    response = getResponse(url)
+    similarDict = json.loads(response)['similarartists']
+    
 
 for genre in getArtistGenres(getArtistID('Kanye')):
     print(genre)
