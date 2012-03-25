@@ -10,6 +10,7 @@ def getResponse(urlToSend):
 def getArtistID(artistName):
     url = 'http://samjkohn.api3.nextbigsound.com/'\
          +'artists/search.json?q=Kanye'
+    print(url)
     response = getResponse(url)
     artist = json.loads(response)
     artistID = artist.keys()[0]
