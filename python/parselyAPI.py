@@ -2,18 +2,23 @@
 import re
 import urllib
 import urllib2
+import parseJSON
 
 def getLyrics(artist, title):
   urlBase = "http://www.azlyrics.com/lyrics/"
   artist = artist.lower()
   artist = re.findall("\w*",artist)
-  urlArtist = artist[0]+artist[2]
+  urlArtist = ""
+  for i in range(len(artist)):
+    if (i%2 == 0):
+      urlArtist += artist[i]
   title = title.lower()
   urlTitle = ""
   for a in title:
     if (a.isalnum() == True):
       urlTitle += a
   url = urlBase + urlArtist + "/" + urlTitle + ".html"
+  #print(url)
   response = urllib2.urlopen(url)
   html = response.read()
   #print(html)
@@ -38,11 +43,11 @@ def parselyLyrics(lyrics):
   lyricsEncode = { "q" : lyrics }
   lyricsQuery = urllib.urlencode(lyricsEncode)
   parselyUrl += lyricsQuery
-  print(parselyUrl)
+  #print(parselyUrl)
   return parselyUrl
 
-def parseLyrics():
-  source = getLyrics("Kanye West", "Stronger")
+def parseLyrics(artist, title):
+  source = getLyrics(artist, title)
   result = source.find("<!-- start of lyrics -->")
   lyrics = source[result+24:result+274]
   lyrics = removeCrapFromLyrics(lyrics, "\[.*?\]")
@@ -51,6 +56,7 @@ def parseLyrics():
   response = urllib2.urlopen(parselyUrl)
   html = response.read()
   #print(html)
+  parselyData = parseJSON.parseJSONlyrics(html)
   
   #print(lyrics)
-  return html
+  return parselyData
