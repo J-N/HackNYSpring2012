@@ -13,7 +13,7 @@ def getArtistID(artistName):
     artistEncode = { 'q':artistName}
     encodedArtistUrl = urllib.urlencode(artistEncode)
     url = url + encodedArtistUrl
-    #print(url)
+    print(url)
     response = getResponse(url)
     artist = json.loads(response)
     artistID = artist.keys()[0]
