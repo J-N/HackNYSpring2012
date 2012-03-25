@@ -28,6 +28,6 @@ $song = substr($title, $pos2+3,-2);
 //print ("The artist: $artist the song: $song\n");
 function killFile()
 {
-	system("rm watch*");
+	system("rm /var/www/watch*");
 }
 ?>
