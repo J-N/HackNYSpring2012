@@ -159,10 +159,10 @@ def getIncorrectAnswers(youTubeURL, numOfIncorrect=3):
         return 0
     #else:
     similarArtistIDList = nbs.getSimilarArtists(artistID)   
-    print("Num incorrect:")
-    print(numOfIncorrect)
+    #print("Num incorrect:")
+    #print(numOfIncorrect)
     for i in range(0,numOfIncorrect):
-        print('\n\nin range loop\n')
+        #print('\n\nin range loop\n')
         artistIndex = random.randint(0,len(similarArtistIDList)-1)
         similarArtistID = similarArtistIDList[artistIndex]
         similarArtistName = nbs.getArtistName(similarArtistID)
